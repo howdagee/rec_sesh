@@ -1,0 +1,13 @@
+{
+    "@@locale": "en",
+
+    "appName": "RecSesh",
+    "@appName": {
+        "description": "The name of the application"
+    },
+
+    "counter": "You have pushed the button this many times:",
+    "@counter": {
+        "description": "Text for the counter"
+    }
+}

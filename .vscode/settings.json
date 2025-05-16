@@ -1,7 +1,9 @@
 {
   "cmake.ignoreCMakeListsMissing": true,
   "cSpell.words": [
+    "cupertino",
     "MVVM",
+    "Riverpod",
     "sesh"
   ]
 }

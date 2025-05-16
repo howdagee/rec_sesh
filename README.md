@@ -11,6 +11,3 @@ I will make a future update to support (at least) iOS.
 
 
 ### MVVM Architecture
-This project uses ValueNotifiers with MVVM architecture instead of a state management package.
-
-I've used BLoC, Provider and Riverpod, but switching between them (between different jobs) has been a pain and ValueNotifiers have proven to be a great solution when implemented correctly.
