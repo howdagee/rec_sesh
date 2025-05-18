@@ -5,7 +5,7 @@ import 'package:rec_sesh/core/utils/navigation/utils.dart';
 
 class RouterService with ObservableRouter {
   RouterService({required this.supportedRoutes}) {
-    // TODO(JDJ): Assign the supportedRoutes to the notifier
+    _navigationStack.value = [_createRouteData(Path(name: '/'))];
   }
 
   final _navigationStack = ValueNotifier<List<RouteData>>([]);

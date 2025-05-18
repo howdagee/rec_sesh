@@ -1,6 +1,10 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:rec_sesh/core/utils/navigation/route_data.dart';
 import 'package:rec_sesh/core/utils/navigation/router_service.dart';
+import 'package:rec_sesh/core/utils/navigation/utils.dart';
+
+final navigatorKey = GlobalKey<NavigatorState>();
 
 class AppRouterDelegate extends RouterDelegate<RouteData> {
   AppRouterDelegate({required RouterService routerService})
@@ -8,31 +12,73 @@ class AppRouterDelegate extends RouterDelegate<RouteData> {
 
   final RouterService _routerService;
 
-  @override
-  void addListener(VoidCallback listener) {
-    // testing jira integration
+  List<Page<dynamic>> createPages() {
+    final pages = <Page<dynamic>>[];
+    for (RouteData routeData in _routerService.navigationStackNotify.value) {
+      final matchedRoute = _routerService.supportedRoutes.firstWhere(
+        (route) => matchRoute(route.path, routeData.uri),
+      );
+
+      Widget child = matchedRoute.builder(
+        ValueKey(routeData.pathWithParams),
+        routeData,
+      );
+
+      pages.add(
+        MaterialPage(key: ValueKey('Page_${routeData.hashCode}'), child: child),
+      );
+    }
+
+    return pages;
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Navigator(
+      key: navigatorKey,
+      pages: createPages(),
+      // ignore: deprecated_member_use
+      onPopPage: (route, result) {
+        if (route.didPop(result)) {
+          return true;
+        }
+        return false;
+      },
+    );
   }
 
   @override
   Future<bool> popRoute() {
-    // TODO: implement popRoute
-    throw UnimplementedError();
+    if (_routerService.navigationStackNotify.value.length > 1) {
+      _routerService.back();
+      return SynchronousFuture(true);
+    }
+    return SynchronousFuture(false);
+  }
+
+  @override
+  RouteData? get currentConfiguration {
+    if (_routerService.navigationStackNotify.value.isEmpty) {
+      return null;
+    }
+    return _routerService.navigationStackNotify.value.last;
+  }
+
+  @override
+  Future<void> setNewRoutePath(RouteData configuration) async {
+    if (currentConfiguration == configuration) {
+      return SynchronousFuture<void>(null);
+    }
+    SynchronousFuture(_routerService.replaceAllWithRoute(configuration));
+  }
+
+  @override
+  void addListener(VoidCallback listener) {
+    _routerService.navigationStackNotify.addListener(listener);
   }
 
   @override
   void removeListener(VoidCallback listener) {
-    // TODO: implement removeListener
-  }
-
-  @override
-  Future<void> setNewRoutePath(configuration) {
-    // TODO: implement setNewRoutePath
-    throw UnimplementedError();
+    _routerService.navigationStackNotify.removeListener(listener);
   }
 }
