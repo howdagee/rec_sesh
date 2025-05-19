@@ -3,17 +3,18 @@ import 'package:rec_sesh/core/utils/navigation/navigation_observable.dart';
 import 'package:rec_sesh/core/utils/navigation/route_data.dart';
 import 'package:rec_sesh/core/utils/navigation/utils.dart';
 
+/// Service responsible for managing navigation state
 class RouterService with ObservableRouter {
   RouterService({required this.supportedRoutes}) {
-    _navigationStack.value = [_createRouteData(Path(name: '/'))];
+    _navigationStack.value = [_createRouteData(RecPath(name: '/'))];
   }
 
   final _navigationStack = ValueNotifier<List<RouteData>>([]);
-  ValueNotifier<List<RouteData>> get navigationStackNotify => _navigationStack;
+  ValueNotifier<List<RouteData>> get navigationStack => _navigationStack;
 
   final List<RouteEntry> supportedRoutes;
 
-  void goTo(Path path) {
+  void goTo(RecPath path) {
     if (_pathNotSupported(path.name)) {
       _handlePathNotSupported();
       return;
@@ -24,14 +25,17 @@ class RouterService with ObservableRouter {
     notifyPush(newRoute);
   }
 
-  void replace(Path path) {
+  void replace(RecPath path) {
     if (_pathNotSupported(path.name)) {
       _handlePathNotSupported();
       return;
     }
 
     final newRoute = _createRouteData(path);
-    _navigationStack.value = [..._navigationStack.value, newRoute];
+    _navigationStack.value = [
+      ..._navigationStack.value.sublist(0, _navigationStack.value.length - 1),
+      newRoute,
+    ];
     notifyReplace([newRoute]);
   }
 
@@ -48,9 +52,9 @@ class RouterService with ObservableRouter {
     notifyPop(poppedRoute);
   }
 
-  void replaceAll(List<Path> routesList) {
+  void replaceAll(List<RecPath> routeDatas) {
     final newRoutes = <RouteData>[];
-    for (final routeData in routesList) {
+    for (final routeData in routeDatas) {
       if (_pathNotSupported(routeData.name)) {
         _handlePathNotSupported();
         return;
@@ -63,7 +67,7 @@ class RouterService with ObservableRouter {
     notifyReplace(newRoutes);
   }
 
-  void backUntil(Path path) {
+  void backUntil(RecPath path) {
     if (!_existsInStack(path.name)) {
       return;
     }
@@ -74,6 +78,7 @@ class RouterService with ObservableRouter {
     final removedRoutes = _navigationStack.value.sublist(indexToKeep + 1);
     _navigationStack.value = _navigationStack.value.sublist(0, indexToKeep + 1);
 
+    // Notify about each removed route
     for (final route in removedRoutes.reversed) {
       notifyPop(route);
     }
@@ -88,14 +93,14 @@ class RouterService with ObservableRouter {
     }
 
     // When restoring from URL, extra is typically not available.
-    // We use the resolvedRoute directly, which might or might not have extra
+    // We use the resolvedRoute directly, which might or might not have extra 
     // depending on how it was created before serialization. If RouteData came
     // from AppRouteInformationParser, it won't have extra.
     _navigationStack.value = [resolvedRoute];
     notifyReplace([resolvedRoute]);
   }
 
-  void remove(Path path) {
+  void remove(RecPath path) {
     if (!_existsInStack(path.name)) return;
 
     final routeToRemove = _navigationStack.value.firstWhere(
@@ -119,12 +124,12 @@ class RouterService with ObservableRouter {
   }
 
   void _handlePathNotSupported() {
-    final notFoundRoute = _createRouteData(Path(name: '/404'));
+    final notFoundRoute = _createRouteData(RecPath(name: '/404'));
     _navigationStack.value = [..._navigationStack.value, notFoundRoute];
     notifyPush(notFoundRoute);
   }
 
-  RouteData _createRouteData(Path path) {
+  RouteData _createRouteData(RecPath path) {
     final uri = Uri.parse(path.name);
     return RouteData(
       uri: uri,
