@@ -8,8 +8,8 @@ class RouteEntry {
   final Widget Function(ValueKey<String>? key, RouteData routeData) builder;
 }
 
-class Path {
-  Path({required this.name, this.extra});
+class RecPath {
+  RecPath({required this.name, this.extra});
 
   final String name;
   final Object? extra;
