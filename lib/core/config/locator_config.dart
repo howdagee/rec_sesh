@@ -17,5 +17,6 @@ final modules = [
     builder: () => RouterService(supportedRoutes: routes),
     lazy: false,
   ),
+  Module<ToastService>(builder: () => ToastService(), lazy: true),
   // TODO(JDJ): Add a LoggingService Module.
 ];
