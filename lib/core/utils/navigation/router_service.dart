@@ -93,7 +93,7 @@ class RouterService with ObservableRouter {
     }
 
     // When restoring from URL, extra is typically not available.
-    // We use the resolvedRoute directly, which might or might not have extra 
+    // We use the resolvedRoute directly, which might or might not have extra
     // depending on how it was created before serialization. If RouteData came
     // from AppRouteInformationParser, it won't have extra.
     _navigationStack.value = [resolvedRoute];
