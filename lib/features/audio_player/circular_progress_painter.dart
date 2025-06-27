@@ -18,29 +18,37 @@ class CircularProgressPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     // Background arc (inactive track)
-    final paintInactive = Paint()
-      ..color = inactiveColor
-      ..strokeWidth = strokeWidth
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round;
+    final paintInactive =
+        Paint()
+          ..color = inactiveColor
+          ..strokeWidth = strokeWidth
+          ..style = PaintingStyle.stroke
+          ..strokeCap = StrokeCap.round;
 
     canvas.drawArc(
-      Rect.fromCircle(center: Offset(size.width / 2, size.height / 2), radius: size.width / 2),
+      Rect.fromCircle(
+        center: Offset(size.width / 2, size.height / 2),
+        radius: size.width / 2,
+      ),
       -0.5 * 3.14159, // Start at top (-90 degrees)
-      2 * 3.14159,    // Sweep a full circle
+      2 * 3.14159, // Sweep a full circle
       false,
       paintInactive,
     );
 
     // Foreground arc (active progress)
-    final paintActive = Paint()
-      ..color = activeColor
-      ..strokeWidth = strokeWidth
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round;
+    final paintActive =
+        Paint()
+          ..color = activeColor
+          ..strokeWidth = strokeWidth
+          ..style = PaintingStyle.stroke
+          ..strokeCap = StrokeCap.round;
 
     canvas.drawArc(
-      Rect.fromCircle(center: Offset(size.width / 2, size.height / 2), radius: size.width / 2),
+      Rect.fromCircle(
+        center: Offset(size.width / 2, size.height / 2),
+        radius: size.width / 2,
+      ),
       -0.5 * 3.14159, // Start at top (-90 degrees)
       2 * 3.14159 * progress, // Sweep based on progress
       false,
@@ -51,8 +59,8 @@ class CircularProgressPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CircularProgressPainter oldDelegate) {
     return oldDelegate.progress != progress ||
-           oldDelegate.activeColor != activeColor ||
-           oldDelegate.inactiveColor != inactiveColor ||
-           oldDelegate.strokeWidth != strokeWidth;
+        oldDelegate.activeColor != activeColor ||
+        oldDelegate.inactiveColor != inactiveColor ||
+        oldDelegate.strokeWidth != strokeWidth;
   }
 }

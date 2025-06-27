@@ -28,7 +28,7 @@ class AppRouterDelegate extends RouterDelegate<RouteData> {
         MaterialPage(key: ValueKey('Page_${routeData.hashCode}'), child: child),
       );
     }
-    
+
     return pages;
   }
 
