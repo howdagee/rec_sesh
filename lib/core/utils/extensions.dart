@@ -17,3 +17,7 @@ extension TextThemeX on BuildContext {
   CustomBreakpoints get breakpoints =>
       Theme.of(this).extension<CustomBreakpoints>()!;
 }
+
+extension StringX on String {
+  String get hardCoded => this;
+}

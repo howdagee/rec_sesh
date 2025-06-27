@@ -7,7 +7,7 @@ class ToastMessage {
   ToastMessage(this.message, {this.duration = const Duration(seconds: 4)});
 }
 
-class ToastService {
+class NotificationService {
   final ValueNotifier<ToastMessage?> _toastNotifier = ValueNotifier(null);
   ValueNotifier<ToastMessage?> get toastNotifier => _toastNotifier;
 
@@ -16,6 +16,10 @@ class ToastService {
       message,
       duration: duration ?? const Duration(seconds: 4),
     );
+  }
+
+  void clear() {
+    _toastNotifier.value = null;
   }
 
   void dispose() {

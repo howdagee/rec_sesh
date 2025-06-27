@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec_sesh/core/utils/navigation/url_strategy/url_strategy.dart';
-import 'package:rec_sesh/startup/startup_view.dart';
+import 'package:rec_sesh/features/startup/startup_view.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
