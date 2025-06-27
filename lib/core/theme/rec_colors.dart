@@ -10,7 +10,9 @@ class RecColors {
   static const secondary = Color(0xFF61806E);
   static const light = Colors.white;
   static const grey = Color(0xFF878787);
-  static const red = Color(0xFFE02D2D);
+  static const red = Color(0xFF9E2F2F);
+
+  static const warning = Color(0XFFDEC249);
 }
 
 @immutable

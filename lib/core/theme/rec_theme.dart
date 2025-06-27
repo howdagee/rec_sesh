@@ -10,7 +10,7 @@ class RecTheme {
     final textStyles = CustomTextStyles();
     final breakpoints = CustomBreakpoints();
 
-    return ThemeData().copyWith(
+    return ThemeData(
       extensions: [textStyles, breakpoints],
       scaffoldBackgroundColor: RecColors.dark,
       appBarTheme: const AppBarTheme(color: RecColors.dark, elevation: 0),
@@ -116,6 +116,7 @@ class RecTheme {
         ),
         elevation: Sizes.p10,
       ),
+      listTileTheme: ListTileThemeData(),
     );
   }
 }

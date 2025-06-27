@@ -1,8 +1,9 @@
+import 'package:rec_sesh/core/services/audio_player_service.dart';
 import 'package:rec_sesh/core/services/logging_service.dart';
 import 'package:rec_sesh/core/config/routes.dart';
 import 'package:rec_sesh/core/utils/locator.dart';
 import 'package:rec_sesh/core/utils/navigation/router_service.dart';
-import 'package:rec_sesh/core/utils/toast/toast_service.dart';
+import 'package:rec_sesh/features/notification_overlay/notification_service.dart';
 
 //? TODO: Create other module lists for different flavors of the app?
 
@@ -19,5 +20,6 @@ final modules = [
     builder: () => RouterService(supportedRoutes: routes),
     lazy: false,
   ),
-  Module<ToastService>(builder: () => ToastService(), lazy: true),
+  Module<NotificationService>(builder: () => NotificationService(), lazy: true),
+  Module<AudioPlayerService>(builder: () => AudioPlayerService(), lazy: false),
 ];

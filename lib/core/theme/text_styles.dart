@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rec_sesh/core/theme/rec_colors.dart';
 
 @immutable
 class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
@@ -7,26 +8,31 @@ class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
     this.sm = const TextStyle(fontSize: 14.0, fontWeight: FontWeight.normal),
     this.standard = const TextStyle(
       fontSize: 16.0,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w400,
+      color: RecColors.light,
     ),
     this.titleSmall = const TextStyle(
       fontSize: 16.0,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w400,
+      color: RecColors.light,
       letterSpacing: 0.25,
     ),
     this.titleMedium = const TextStyle(
       fontSize: 18.0,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w300,
+      color: RecColors.light,
       letterSpacing: 0.25,
     ),
     this.titleLarge = const TextStyle(
-      fontSize: 22.0,
-      fontWeight: FontWeight.w600,
+      fontSize: 21.0,
+      fontWeight: FontWeight.w300,
+      color: RecColors.light,
       letterSpacing: 0.25,
     ),
     this.headline = const TextStyle(
-      fontSize: 25.0,
+      fontSize: 28.0,
       fontWeight: FontWeight.w400,
+      color: RecColors.light,
     ),
   });
 
