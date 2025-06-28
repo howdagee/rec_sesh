@@ -16,7 +16,7 @@ class AudioPlayer extends StatefulWidget {
 }
 
 class _AudioPlayerState extends State<AudioPlayer> {
-  late final _viewModel = AudioPlayerViewModel(
+  late final _vmAudioPlayer = AudioPlayerViewModel(
     audioPlayerService: locator<AudioPlayerService>(),
   );
 
@@ -32,9 +32,8 @@ class _AudioPlayerState extends State<AudioPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    final currentTrack = _viewModel.currentTrack.value;
+    final currentTrack = _vmAudioPlayer.currentTrack.value;
     final textStyles = context.textStyles;
-    // final double progressValue =
     return Container(
       margin: const EdgeInsets.only(
         bottom: Sizes.p40,
@@ -77,7 +76,7 @@ class _AudioPlayerState extends State<AudioPlayer> {
                 ),
                 SizedBox(height: 4),
                 ValueListenableBuilder(
-                  valueListenable: _viewModel.currentPosition,
+                  valueListenable: _vmAudioPlayer.currentPosition,
                   builder: (context, currentPosition, child) {
                     return Text(
                       '${formatDuration(currentPosition)} / ${formatDuration(currentTrack?.duration ?? Duration.zero)}', // Show current/total time
@@ -109,7 +108,7 @@ class _AudioPlayerState extends State<AudioPlayer> {
                     width: 54, // Size of the circular container
                     height: 54,
                     child: ValueListenableBuilder(
-                      valueListenable: _viewModel.progressPosition,
+                      valueListenable: _vmAudioPlayer.progressPosition,
                       builder: (context, position, child) {
                         return CustomPaint(
                           painter: CircularProgressPainter(
@@ -125,7 +124,7 @@ class _AudioPlayerState extends State<AudioPlayer> {
                     ),
                   ),
                   ValueListenableBuilder(
-                    valueListenable: _viewModel.isPlaying,
+                    valueListenable: _vmAudioPlayer.isPlaying,
                     builder: (context, isPlaying, child) {
                       return IconButton(
                         icon: Icon(
@@ -135,7 +134,7 @@ class _AudioPlayerState extends State<AudioPlayer> {
                           color: RecColors.primary,
                           size: 42, // Size of the icon
                         ),
-                        onPressed: _viewModel.playPauseToggled,
+                        onPressed: _vmAudioPlayer.playPauseToggled,
                       );
                     },
                   ),
@@ -143,7 +142,7 @@ class _AudioPlayerState extends State<AudioPlayer> {
               ),
               SizedBox(width: Sizes.p4),
               TextButton(
-                onPressed: _viewModel.skipSeconds,
+                onPressed: _vmAudioPlayer.skipSeconds,
                 child: Text(
                   '+10s',
                   style: context.textStyles.titleSmall.copyWith(
