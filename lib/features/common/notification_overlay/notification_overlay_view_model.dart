@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:rec_sesh/core/services/audio_player_service.dart';
-import 'package:rec_sesh/features/notification_overlay/notification_service.dart';
+import 'package:rec_sesh/features/common/notification_overlay/notification_service.dart';
 import 'package:rec_sesh/features/projects/domain/audio_track.dart';
 
 class NotificationOverlayViewModel {

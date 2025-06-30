@@ -4,8 +4,8 @@ import 'package:rec_sesh/core/theme/rec_colors.dart';
 import 'package:rec_sesh/core/theme/sizes.dart';
 import 'package:rec_sesh/core/utils/extensions.dart';
 import 'package:rec_sesh/core/utils/locator.dart';
-import 'package:rec_sesh/features/notification_overlay/notification_overlay_view_model.dart';
-import 'package:rec_sesh/features/notification_overlay/notification_service.dart';
+import 'package:rec_sesh/features/common/notification_overlay/notification_overlay_view_model.dart';
+import 'package:rec_sesh/features/common/notification_overlay/notification_service.dart';
 import 'package:rec_sesh/features/audio_player/audio_player.dart';
 
 class NotificationOverlay extends StatefulWidget {

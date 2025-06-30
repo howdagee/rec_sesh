@@ -3,7 +3,7 @@ import 'package:logging/logging.dart';
 import 'package:rec_sesh/core/services/audio_player_service.dart';
 import 'package:rec_sesh/core/utils/navigation/route_data.dart';
 import 'package:rec_sesh/core/utils/navigation/router_service.dart';
-import 'package:rec_sesh/features/notification_overlay/notification_service.dart';
+import 'package:rec_sesh/features/common/notification_overlay/notification_service.dart';
 import 'package:rec_sesh/features/projects/domain/audio_track.dart';
 
 /// Manages the dog image gallery for the home screen

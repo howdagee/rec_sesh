@@ -6,7 +6,7 @@ import 'package:logging/logging.dart';
 import 'package:rec_sesh/core/services/logging_service.dart';
 import 'package:rec_sesh/core/config/locator_config.dart';
 import 'package:rec_sesh/core/utils/locator.dart';
-import 'package:rec_sesh/features/startup/startup_app_state.dart';
+import 'package:rec_sesh/features/common/startup/startup_app_state.dart';
 
 class StartupViewModel {
   StartupViewModel({LoggingService? loggingService})
