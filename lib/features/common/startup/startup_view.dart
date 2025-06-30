@@ -8,9 +8,9 @@ import 'package:rec_sesh/core/utils/l10n/translate_extension.dart';
 import 'package:rec_sesh/core/utils/locator.dart';
 import 'package:rec_sesh/core/utils/navigation/rec_router_config.dart';
 import 'package:rec_sesh/core/utils/navigation/router_service.dart';
-import 'package:rec_sesh/features/notification_overlay/notification_overlay.dart';
-import 'package:rec_sesh/features/startup/startup_app_state.dart';
-import 'package:rec_sesh/features/startup/startup_view_model.dart';
+import 'package:rec_sesh/features/common/notification_overlay/notification_overlay.dart';
+import 'package:rec_sesh/features/common/startup/startup_app_state.dart';
+import 'package:rec_sesh/features/common/startup/startup_view_model.dart';
 
 /// Responsible for initializing services and setting up the directories
 /// for project.

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '/core/utils/locator.dart';
 import 'package:rec_sesh/core/utils/navigation/router_service.dart';
-import 'package:rec_sesh/features/not_found/not_found_view_model.dart';
+import 'package:rec_sesh/features/common/not_found/not_found_view_model.dart';
 
 class NotFoundView extends StatefulWidget {
   const NotFoundView({super.key});

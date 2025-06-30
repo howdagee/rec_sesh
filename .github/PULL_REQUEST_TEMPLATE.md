@@ -1,26 +1,49 @@
-<!--
-  Provide a description of your changes below and a general summary in the title
+## Proposed Changes
 
-  Please look at the following checklist to ensure that your PR can be accepted quickly:
--->
+Please describe the changes in this pull request. Be concise but clear.
 
-## Description
-
-<!--- Describe your changes in detail -->
+---
 
 ## Type of Change
 
-<!--- Put an `x` in all the boxes that apply: -->
+Please select the type of change(s) that best describes this PR. Check all that apply.
 
-- [ ] ✨ **feat:** New feature (non-breaking change which adds functionality)
-- [ ] 🛠️ **fix:** Bug fix (non-breaking change which fixes an issue)
-- [ ] ❌ **BREAKING CHANGE:** (fix or feature that would cause existing functionality to change)
-- [ ] 🧹 **refactor:** A code change that neither fixes a bug nor adds a feature
-- [ ] ✅ **build:** Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
-- [ ] 📝 **docs:** (Documentation only changes)
-- [ ] 🗑️ **chore:** (Other changes that don't modify src or test files)
-- [ ] :man_dancing: **style:** Changes that do not affect the meaning of the code (whitespace, formatting, missing semi-colons, etc)
-- [ ] :chart_with_upwards_trend: **perf:** A code change that improves performance
-- [ ] :test_tube: **test:** Adding missing tests or correcting existing tests
-- [ ] 🚀 **ci:** Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)
-- [ ] :rewind: **revert:** Reverts a previous commit
+- [ ] **`feat`**: A new feature
+- [ ] **`fix`**: A bug fix
+- [ ] **`build`**: Changes that affect the build system or external dependencies (e.g., npm, yarn, Flutter dependencies)
+- [ ] **`chore`**: Routine tasks; maintenance (e.g., updating .gitignore, reformatting code)
+- [ ] **`ci`**: Changes to CI configuration files and scripts (e.g., GitHub Actions, Travis, Jenkins)
+- [ ] **`docs`**: Documentation only changes
+- [ ] **`perf`**: A code change that improves performance
+- [ ] **`refactor`**: A code change that neither fixes a bug nor adds a feature, but improves code structure/readability
+- [ ] **`revert`**: Reverts a previous commit
+- [ ] **`style`**: Changes that do not affect the meaning of the code (whitespace, formatting, semicolons)
+- [ ] **`test`**: Adding missing tests or correcting existing tests
+
+---
+
+## Related Issues (Optional)
+
+Link any related GitHub issues here. Use keywords like `Closes #`, `Fixes #`, or `Resolves #` to automatically close issues when the PR is merged.
+
+- Closes #ISSUE_NUMBER
+- Fixes #ISSUE_NUMBER
+- Relates to #ISSUE_NUMBER
+
+---
+
+## Checklist (Self-Review)
+
+Before submitting your PR, please ensure you have completed the following:
+
+- [ ] My code follows the project's [coding style guidelines](LINK_TO_STYLE_GUIDE_OR_README_SECTION).
+- [ ] I have performed a self-review of my own code.
+- [ ] I have commented my code, particularly in hard-to-understand areas.
+- [ ] I have made corresponding changes to the documentation (if applicable).
+- [ ] My changes generate no new warnings or errors.
+- [ ] I have added tests that prove my fix is effective or my feature works.
+- [ ] New and existing unit/integration tests pass locally with my changes.
+- [ ] I have rebased my branch on the latest `main`/`master` branch to avoid merge conflicts.
+- [ ] My changes are ready to be reviewed by others.
+
+

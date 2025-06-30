@@ -7,7 +7,7 @@ import 'package:rec_sesh/core/utils/helpers.dart';
 import 'package:rec_sesh/core/utils/locator.dart';
 import 'package:rec_sesh/core/utils/navigation/router_service.dart';
 import 'package:rec_sesh/core/utils/time_formatter.dart';
-import 'package:rec_sesh/features/notification_overlay/notification_service.dart';
+import 'package:rec_sesh/features/common/notification_overlay/notification_service.dart';
 import 'package:rec_sesh/core/widgets/rec_list_tile.dart';
 import 'package:rec_sesh/features/projects/presentation/projects_list/project_list_view_model.dart';
 import 'package:rec_sesh/core/widgets/view_container.dart';
