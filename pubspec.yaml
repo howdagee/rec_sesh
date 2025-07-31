@@ -38,11 +38,16 @@ dependencies:
   # Logging
   logging: ^1.2.0
 
+  # Managing projects/tracks for the device's filesystem.
+  path_provider: ^2.1.5
+  path: ^1.9.1
+  record: ^6.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
 
 flutter:
   # Localization

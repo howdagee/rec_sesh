@@ -3,6 +3,7 @@ import 'package:rec_sesh/core/services/logging_service.dart';
 import 'package:rec_sesh/core/config/routes.dart';
 import 'package:rec_sesh/core/utils/locator.dart';
 import 'package:rec_sesh/core/utils/navigation/router_service.dart';
+import 'package:rec_sesh/features/projects/data/file_system_data_source.dart';
 import 'package:rec_sesh/features/common/notification_overlay/notification_service.dart';
 
 //? TODO: Create other module lists for different flavors of the app?
@@ -21,5 +22,9 @@ final modules = [
     lazy: false,
   ),
   Module<NotificationService>(builder: () => NotificationService(), lazy: true),
+  Module<FileSystemDataSource>(
+    builder: () => FileSystemDataSource(),
+    lazy: false,
+  ),
   Module<AudioPlayerService>(builder: () => AudioPlayerService(), lazy: false),
 ];
