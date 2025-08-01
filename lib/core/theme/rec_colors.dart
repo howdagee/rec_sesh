@@ -8,6 +8,7 @@ class RecColors {
   static const darkMedium = Color(0xFF1B1B1B);
   static const primary = Color(0xFF4ADE80);
   static const secondary = Color(0xFF61806E);
+  static const splashColor = Color(0x4D61806E);
   static const light = Colors.white;
   static const grey = Color(0xFF878787);
   static const red = Color(0xFF9E2F2F);
