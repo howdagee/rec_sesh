@@ -1,6 +1,5 @@
 sealed class ProjectException implements Exception {}
 
-
 class CreateProjectException extends ProjectException {}
 
 class ProjectAlreadyExistsException extends ProjectException {}

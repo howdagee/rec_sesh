@@ -8,7 +8,6 @@ import 'package:rec_sesh/core/models/audio_track.dart';
 import 'package:rec_sesh/core/models/project.dart';
 import 'package:rec_sesh/core/utils/time_formatter.dart';
 
-
 /// A wrapper around path_provider and path packages, to help with managing
 /// projects and tracks.
 class FileSystemDataSource {
