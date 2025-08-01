@@ -27,4 +27,4 @@ jobs:
       includes: |
         **/*.{dart,md,yaml}
         !.dart_tool/**/*.{dart,yaml}
-      modified_files_only: true
+      modified_files_only: false
