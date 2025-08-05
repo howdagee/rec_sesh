@@ -22,26 +22,26 @@ class StartupView extends StatefulWidget {
 }
 
 class _StartupViewState extends State<StartupView> {
-  late final _viewModel = StartupViewModel();
+  late final _vmStartup = StartupViewModel();
   late final RecRouterConfig _recRouterConfig;
 
   @override
   void initState() {
     super.initState();
-    _viewModel.initializeApp();
+    _vmStartup.initializeApp();
     _recRouterConfig = RecRouterConfig(routerService: locator<RouterService>());
   }
 
   @override
   void dispose() {
-    _viewModel.dispose();
+    _vmStartup.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: _viewModel.appStateNotify,
+      valueListenable: _vmStartup.appStateNotify,
       builder: (context, state, _) {
         return MaterialApp.router(
           routerConfig: _recRouterConfig,
@@ -55,8 +55,9 @@ class _StartupViewState extends State<StartupView> {
               (context, router) => switch (state) {
                 InitializingApp() => _SplashView(),
                 AppInitialized() => NotificationOverlay(child: router!),
-                AppInitializationError() => _StartupErrorView(
-                  onRetry: _viewModel.retryInitialization,
+                AppInitializationError(error: final error) => _StartupErrorView(
+                  onRetry: _vmStartup.retryInitialization,
+                  error: error,
                 ),
               },
         );
@@ -66,9 +67,10 @@ class _StartupViewState extends State<StartupView> {
 }
 
 class _StartupErrorView extends StatelessWidget {
-  const _StartupErrorView({required this.onRetry});
+  const _StartupErrorView({required this.onRetry, this.error});
 
   final VoidCallback onRetry;
+  final Object? error;
 
   @override
   Widget build(BuildContext context) {
@@ -82,8 +84,9 @@ class _StartupErrorView extends StatelessWidget {
               Icon(Icons.error_outline, color: RecColors.red, size: Sizes.p40),
               SizedBox(height: 12),
               Text('An error occurred'.hardCoded, textAlign: TextAlign.center),
-              SizedBox(height: 8),
               Text('Error starting app'.hardCoded, textAlign: TextAlign.center),
+              SizedBox(height: 8),
+              Text('$error'.hardCoded, textAlign: TextAlign.center),
               SizedBox(height: 24),
               FilledButton.icon(
                 onPressed: onRetry,

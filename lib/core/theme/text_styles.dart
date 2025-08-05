@@ -4,34 +4,43 @@ import 'package:rec_sesh/core/theme/rec_colors.dart';
 @immutable
 class CustomTextStyles extends ThemeExtension<CustomTextStyles> {
   const CustomTextStyles({
-    this.xs = const TextStyle(fontSize: 12.0, fontWeight: FontWeight.normal),
+    this.xs = const TextStyle(
+      fontFamily: 'OpenSans',
+      fontSize: 12.0,
+      fontWeight: FontWeight.normal,
+    ),
     this.sm = const TextStyle(fontSize: 14.0, fontWeight: FontWeight.normal),
     this.standard = const TextStyle(
+      fontFamily: 'OpenSans',
       fontSize: 16.0,
       fontWeight: FontWeight.w400,
       color: RecColors.light,
     ),
     this.titleSmall = const TextStyle(
+      fontFamily: 'OpenSans',
       fontSize: 16.0,
       fontWeight: FontWeight.w400,
       color: RecColors.light,
       letterSpacing: 0.25,
     ),
     this.titleMedium = const TextStyle(
+      fontFamily: 'OpenSans',
       fontSize: 18.0,
       fontWeight: FontWeight.w300,
       color: RecColors.light,
       letterSpacing: 0.25,
     ),
     this.titleLarge = const TextStyle(
+      fontFamily: 'OpenSans',
       fontSize: 21.0,
       fontWeight: FontWeight.w300,
       color: RecColors.light,
       letterSpacing: 0.25,
     ),
     this.headline = const TextStyle(
-      fontSize: 28.0,
-      fontWeight: FontWeight.w400,
+      fontFamily: 'OpenSans',
+      fontSize: 21.0,
+      fontWeight: FontWeight.w600,
       color: RecColors.light,
     ),
   });

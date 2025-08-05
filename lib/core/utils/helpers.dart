@@ -1,20 +1,11 @@
-Duration parseDuration(String s) {
-  List<String> parts = s.split(':');
-  if (parts.length == 2) {
-    int minutes = int.tryParse(parts[0]) ?? 0;
-    int seconds = int.tryParse(parts[1]) ?? 0;
-    return Duration(minutes: minutes, seconds: seconds);
-  }
-  if (parts.length == 1) {
-    int seconds = int.tryParse(parts[0]) ?? 0;
-    return Duration(seconds: seconds);
-  }
-  return Duration.zero;
-}
-
-String formatDuration(Duration d) {
-  String twoDigits(int n) => n.toString().padLeft(2, "0");
-  String twoDigitMinutes = twoDigits(d.inMinutes.remainder(60));
-  String twoDigitSeconds = twoDigits(d.inSeconds.remainder(60));
-  return "$twoDigitMinutes:$twoDigitSeconds";
+/// Formats a [Duration] object into a human-readable string representation.
+///
+/// The format produced is `HH:MM:SS` if the duration includes hours,
+/// or `MM:SS` if it only includes minutes and seconds.
+String formatDuration(Duration duration) {
+  String twoDigits(int n) => n.toString().padLeft(2, '0');
+  final minutes = twoDigits(duration.inMinutes.remainder(60));
+  final seconds = twoDigits(duration.inSeconds.remainder(60));
+  final hours = twoDigits(duration.inHours);
+  return "${hours == '00' ? '' : '$hours:'}$minutes:$seconds";
 }

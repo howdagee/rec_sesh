@@ -4,8 +4,8 @@ import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 import 'package:rec_sesh/core/exceptions/project_exception.dart';
-import 'package:rec_sesh/core/models/audio_track.dart';
-import 'package:rec_sesh/core/models/project.dart';
+import 'package:rec_sesh/features/projects/domain/audio_track.dart';
+import 'package:rec_sesh/features/projects/domain/project.dart';
 import 'package:rec_sesh/core/utils/time_formatter.dart';
 
 /// A wrapper around path_provider and path packages, to help with managing
@@ -20,7 +20,7 @@ class FileSystemDataSource {
   static const _baseAppDirectory = 'rec_sesh_projects';
 
   /// The name of the directory where all unassigned tracks are saved.
-  static const _unassignedTracksDirectory = 'unassigned_tracks';
+  static const _unassignedDirectoryName = 'unassigned_tracks';
   String? _cachedProjectsPath;
 
   Future<String> get _getBaseProjectsPath async =>
@@ -29,20 +29,30 @@ class FileSystemDataSource {
         _baseAppDirectory,
       );
 
-  /// Retrieves the path for unassigned recordings and generates a DateTime
-  /// to be used for the filename.
-  String generatePathForRecording(String fileExtension) {
+  /// Creates a path for either a project if [selectedProject] is not null, or
+  /// generates a path for a new unassigned track. Uses a timestamp for the
+  /// filename.
+  Future<String> generatePathForRecording({
+    Project? selectedProject,
+    String? fileExtension = 'wav',
+  }) async {
     final weekdayAndTime = DateTimeFormatter.getWeekdayAtTime(DateTime.now());
 
-    final savePath = p.join(
-      _cachedProjectsPath!,
-      _unassignedTracksDirectory,
-      '$weekdayAndTime.$fileExtension',
-    );
-
-    _log.info('Saving quick recording to: $savePath');
-
-    return savePath;
+    if (selectedProject != null && await projectExists(selectedProject.name)) {
+      _log.info('Generating path for project ${selectedProject.name}');
+      return p.join(
+        _cachedProjectsPath!,
+        selectedProject.name,
+        '$weekdayAndTime.$fileExtension',
+      );
+    } else {
+      _log.info('Generating path for unassigned track');
+      return p.join(
+        _cachedProjectsPath!,
+        _unassignedDirectoryName,
+        '$weekdayAndTime.$fileExtension',
+      );
+    }
   }
 
   /// Checks if the provided [projectName] already exists as a
@@ -53,7 +63,7 @@ class FileSystemDataSource {
 
   /// Create a directory with the provided [projectName].
   ///
-  /// Throws a [CreateDirectoryException] if there is n error creating the
+  /// Throws a [CreateDirectoryException] if there is an error creating the
   /// directory, or [DirectoryAlreadyExistsException] if the directory already
   /// exists.
   Future<void> createProject(String projectName) async {
@@ -79,7 +89,7 @@ class FileSystemDataSource {
     _log.info('Initializing root path for projects');
     Directory(await _getBaseProjectsPath).createSync();
     Directory(
-      p.join(await _getBaseProjectsPath, _unassignedTracksDirectory),
+      p.join(await _getBaseProjectsPath, _unassignedDirectoryName),
     ).createSync();
   }
 
@@ -91,6 +101,36 @@ class FileSystemDataSource {
     } on FileSystemException catch (e) {
       _log.warning('Exception: deleteDirectoryByName $e - ${e.path}');
       rethrow;
+    }
+  }
+
+  /// Retrieves a list of the 2 recent (unassigned) recordings.
+  Future<List<AudioFile>> getRecentRecordings() async {
+    try {
+      final unassignedTracks = await getTracksForProject(
+        _unassignedDirectoryName,
+      );
+      _log.info('Unassigned tracks found: ${unassignedTracks.length}');
+      unassignedTracks.sort((a, b) => b.dateCreated.compareTo(a.dateCreated));
+      return unassignedTracks.take(2).toList();
+    } catch (e, stack) {
+      _log.severe('Error fetching the unassigned tracks: $e', stack);
+      return [];
+    }
+  }
+
+  /// Retrieves all unassigned recordings with the most recent first.
+  Future<List<AudioFile>> getUnassignedRecordings() async {
+    try {
+      final unassignedTracks = await getTracksForProject(
+        _unassignedDirectoryName,
+      );
+      _log.info('Unassigned tracks found: ${unassignedTracks.length}');
+      unassignedTracks.sort((a, b) => b.dateCreated.compareTo(a.dateCreated));
+      return unassignedTracks;
+    } catch (e, stack) {
+      _log.severe('Error fetching the unassigned tracks: $e', stack);
+      return [];
     }
   }
 
@@ -111,7 +151,7 @@ class FileSystemDataSource {
 
       return projects;
     } on PathNotFoundException catch (e) {
-      _log.info('Failed to get directory names at root: $e');
+      _log.severe('Failed to get directory names at root: $e');
       rethrow;
     }
   }
@@ -148,4 +188,29 @@ class FileSystemDataSource {
 
   Future<Directory> _getProjectDirectory(String projectName) async =>
       Directory(p.join(await _getBaseProjectsPath, projectName));
+
+  Future<void> deleteSelectedTracks(
+    Set<String> selectedTracks, [
+    Project? project,
+  ]) async {
+    if (project == null) {
+      // no project means unassigned tracks were selected for deletion.
+      final projectDirectory = await _getProjectDirectory(
+        _unassignedDirectoryName,
+      );
+      final tracks = projectDirectory.listSync(recursive: true).toList();
+      for (final track in tracks) {
+        final fileName = p.basenameWithoutExtension(track.path);
+        if (selectedTracks.contains(fileName)) {
+          track.deleteSync();
+          _log.info('Audio file "$fileName" was deleted.');
+        }
+      }
+    } else {
+      throw UnimplementedError(
+        'Missing implementation for deleting project '
+        'specific tracks',
+      );
+    }
+  }
 }

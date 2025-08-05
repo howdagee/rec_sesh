@@ -12,6 +12,8 @@ class RecListTile extends StatelessWidget {
     this.leadingIcon,
     this.trailing,
     this.onTapTrailing,
+    this.onLongPress,
+    this.selected = false,
   });
 
   final String title;
@@ -20,20 +22,25 @@ class RecListTile extends StatelessWidget {
   final Widget? trailing;
   final GestureTapCallback? onTap;
   final GestureTapCallback? onTapTrailing;
+  final GestureTapCallback? onLongPress;
+  final bool selected;
 
   @override
   Widget build(BuildContext context) {
     return Card(
       clipBehavior: Clip.hardEdge,
       child: ListTile(
+        selectedTileColor: RecColors.splashColor,
         minVerticalPadding: 12,
+        selected: selected,
         leading: Icon(leadingIcon, color: RecColors.secondary, size: Sizes.p24),
-        trailing: trailing,
+        trailing: InkWell(onTap: onTapTrailing, child: trailing),
         title: Text(title, style: context.textStyles.titleSmall),
         subtitle: subtitle,
-        splashColor: RecColors.secondary.withValues(alpha: .3),
+        splashColor: !selected ? RecColors.splashColor : Colors.transparent,
         tileColor: RecColors.surface,
         onTap: onTap,
+        onLongPress: onLongPress,
       ),
     );
   }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:rec_sesh/core/services/audio_player_service.dart';
+import 'package:rec_sesh/features/audio_player/application/audio_player_service.dart';
 import 'package:rec_sesh/core/theme/rec_colors.dart';
 import 'package:rec_sesh/core/theme/sizes.dart';
 import 'package:rec_sesh/core/utils/extensions.dart';
 import 'package:rec_sesh/core/utils/locator.dart';
 import 'package:rec_sesh/features/common/notification_overlay/notification_overlay_view_model.dart';
 import 'package:rec_sesh/features/common/notification_overlay/notification_service.dart';
-import 'package:rec_sesh/features/audio_player/audio_player.dart';
+import 'package:rec_sesh/features/audio_player/presentation/audio_player_widget.dart';
 
 class NotificationOverlay extends StatefulWidget {
   final Widget child;
@@ -58,7 +58,7 @@ class _NotificationOverlayState extends State<NotificationOverlay> {
                       constraints: BoxConstraints(
                         maxWidth: context.breakpoints.sm,
                       ),
-                      child: AudioPlayer(key: ValueKey<bool>(true)),
+                      child: AudioPlayerWidget(key: ValueKey<bool>(true)),
                     ),
           );
         },
