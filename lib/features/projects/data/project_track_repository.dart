@@ -3,8 +3,6 @@ import 'package:rec_sesh/features/projects/domain/audio_track.dart';
 import 'package:rec_sesh/features/projects/domain/project.dart';
 import 'package:rec_sesh/features/projects/data/file_system_data_source.dart';
 
-
-
 /// Repository for managing projects and the corresponding audio files.
 class ProjectTrackRepository {
   ProjectTrackRepository({required FileSystemDataSource projectTrackDataSource})
