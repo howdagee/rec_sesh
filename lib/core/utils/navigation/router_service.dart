@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:logging/logging.dart';
 import 'package:rec_sesh/core/utils/navigation/navigation_observable.dart';
 import 'package:rec_sesh/core/utils/navigation/route_data.dart';
 import 'package:rec_sesh/core/utils/navigation/utils.dart';
@@ -8,17 +9,25 @@ class RouterService with ObservableRouter {
   RouterService({required this.supportedRoutes}) {
     _navigationStack.value = [_createRouteData(RecPath(name: '/'))];
   }
+  final _log = Logger('$RouterService');
+
+  /// Small delay so the user can get visual feedback from any splash animations
+  /// before the screen transitions.
+  static const _screenTransitionDelay = Duration(milliseconds: 200);
 
   final _navigationStack = ValueNotifier<List<RouteData>>([]);
   ValueNotifier<List<RouteData>> get navigationStack => _navigationStack;
 
   final List<RouteEntry> supportedRoutes;
 
-  void goTo(RecPath path) {
+  Future<void> goTo(RecPath path) async {
     if (_pathNotSupported(path.name)) {
       _handlePathNotSupported();
       return;
     }
+    // A small delay allows any splash animations (i.e. from a button click) to
+    // complete before the screen transition.
+    await Future.delayed(_screenTransitionDelay);
 
     final newRoute = _createRouteData(path);
     _navigationStack.value = [..._navigationStack.value, newRoute];
@@ -39,10 +48,16 @@ class RouterService with ObservableRouter {
     notifyReplace([newRoute]);
   }
 
-  void back() {
+  Future<void> back() async {
     if (_navigationStack.value.length <= 1) {
+      _log.warning(
+        'unable to navigate back with '
+        '${_navigationStack.value.length} screen(s) in stack',
+      );
       return;
     }
+
+    await Future.delayed(_screenTransitionDelay);
 
     final poppedRoute = _navigationStack.value.last;
     _navigationStack.value = _navigationStack.value.sublist(
@@ -52,7 +67,7 @@ class RouterService with ObservableRouter {
     notifyPop(poppedRoute);
   }
 
-  void replaceAll(List<RecPath> routeDatas) {
+  Future<void> replaceAll(List<RecPath> routeDatas) async {
     final newRoutes = <RouteData>[];
     for (final routeData in routeDatas) {
       if (_pathNotSupported(routeData.name)) {
@@ -63,6 +78,7 @@ class RouterService with ObservableRouter {
       final newRoute = _createRouteData(routeData);
       newRoutes.add(newRoute);
     }
+    await Future.delayed(_screenTransitionDelay);
     _navigationStack.value = newRoutes;
     notifyReplace(newRoutes);
   }
@@ -120,7 +136,11 @@ class RouterService with ObservableRouter {
 
   bool _pathNotSupported(String path) {
     final uri = Uri.parse(path);
-    return !supportedRoutes.any((r) => matchRoute(r.path, uri));
+    final isNotSupported = !supportedRoutes.any((r) => matchRoute(r.path, uri));
+    if (isNotSupported) {
+      _log.warning('Path not supported: $path');
+    }
+    return isNotSupported;
   }
 
   void _handlePathNotSupported() {

@@ -10,7 +10,7 @@ class AudioPlayerService {
   // TODO(JDJ): Could probably group these together into an AudioPlayerState
   //  object.
   final _isPlayerVisible = ValueNotifier(true);
-  final _currentTrackNotifier = ValueNotifier<AudioTrack?>(null);
+  final _currentTrackNotifier = ValueNotifier<AudioFile?>(null);
   final _isPlaying = ValueNotifier<bool>(false);
   final _currentPosition = ValueNotifier<Duration>(Duration.zero);
   final _progressPosition = ValueNotifier<double>(0.0);
@@ -18,12 +18,12 @@ class AudioPlayerService {
   Timer? _playbackTimer;
 
   ValueListenable<bool> get isPlayerVisible => _isPlayerVisible;
-  ValueListenable<AudioTrack?> get currentTrack => _currentTrackNotifier;
+  ValueListenable<AudioFile?> get currentTrack => _currentTrackNotifier;
   ValueListenable<bool> get isPlaying => _isPlaying;
   ValueListenable<Duration> get currentPosition => _currentPosition;
   ValueListenable<double> get progressPosition => _progressPosition;
 
-  void playTrack(AudioTrack audioTrack) {
+  void playTrack(AudioFile audioTrack) {
     _log.info('Playing track');
     _currentPosition.value = Duration.zero;
     _currentTrackNotifier.value = audioTrack;
@@ -36,7 +36,8 @@ class AudioPlayerService {
       _stopPlaybackSimulation();
     } else {
       _log.info('|> Resuming track "${_currentTrackNotifier.value?.name}.');
-      if (_currentPosition.value >= _currentTrackNotifier.value!.duration) {
+      if (_currentPosition.value >=
+          (_currentTrackNotifier.value!.duration ?? Duration.zero)) {
         _currentPosition.value = Duration.zero;
       }
       _startPlaybackSimulation();
@@ -45,7 +46,8 @@ class AudioPlayerService {
 
   void skipSeconds() {
     _log.info('Skipping 10s');
-    final totalDuration = _currentTrackNotifier.value!.duration;
+    final totalDuration =
+        _currentTrackNotifier.value!.duration ?? Duration.zero;
     var newPosition = _currentPosition.value + const Duration(seconds: 10);
     if (newPosition >= totalDuration) {
       newPosition = totalDuration;

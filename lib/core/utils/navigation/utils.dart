@@ -1,3 +1,4 @@
+import 'package:rec_sesh/core/config/route_config.dart' show RecRoute;
 import 'package:rec_sesh/core/utils/navigation/route_data.dart';
 
 bool matchRoute(String pattern, Uri path) {
@@ -17,7 +18,7 @@ bool matchRoute(String pattern, Uri path) {
 String findMatchingRoutePattern(Uri path, List<RouteEntry> routes) {
   final route = routes.firstWhere(
     (route) => matchRoute(route.path, path),
-    orElse: () => routes.firstWhere((route) => route.path == '/404'),
+    orElse: () => routes.firstWhere((route) => route.path == RecRoute.notFound),
   );
 
   return route.path;

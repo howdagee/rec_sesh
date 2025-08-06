@@ -62,9 +62,15 @@ class Module<T> {
 class ModuleNotFoundException implements Exception {
   final Type type;
   ModuleNotFoundException(this.type);
+
+  @override
+  String toString() => '$ModuleNotFoundException($type)';
 }
 
 class ModuleAlreadyRegisteredException implements Exception {
   final Type type;
   ModuleAlreadyRegisteredException(this.type);
+
+  @override
+  String toString() => '$ModuleAlreadyRegisteredException($type)';
 }

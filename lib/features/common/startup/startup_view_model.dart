@@ -6,6 +6,7 @@ import 'package:logging/logging.dart';
 import 'package:rec_sesh/core/services/logging_service.dart';
 import 'package:rec_sesh/core/config/locator_config.dart';
 import 'package:rec_sesh/core/utils/locator.dart';
+import 'package:rec_sesh/features/projects/data/file_system_data_source.dart';
 import 'package:rec_sesh/features/common/startup/startup_app_state.dart';
 
 class StartupViewModel {
@@ -25,8 +26,12 @@ class StartupViewModel {
     try {
       locator.registerMany(modules);
       _loggingSubscription = _loggingService.init();
+      // initialize the root directories needed for the app
+      locator<FileSystemDataSource>().init();
+      await Future.delayed(const Duration(milliseconds: 1200));
       appStateNotify.value = const AppInitialized();
     } catch (e, stack) {
+      _logger.shout('$e', stack);
       appStateNotify.value = AppInitializationError(e, stack);
     }
 

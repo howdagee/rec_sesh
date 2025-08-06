@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'package:rec_sesh/core/services/audio_player_service.dart';
-import 'package:rec_sesh/features/common/notification_overlay/notification_service.dart';
 import 'package:rec_sesh/features/projects/domain/audio_track.dart';
+import 'package:rec_sesh/features/audio_player/application/audio_player_service.dart';
+import 'package:rec_sesh/features/common/notification_overlay/notification_service.dart';
 
 class NotificationOverlayViewModel {
   NotificationOverlayViewModel({
@@ -16,7 +16,7 @@ class NotificationOverlayViewModel {
   ValueListenable<ToastMessage?> get toastNotifier =>
       _notificationService.toastNotifier;
 
-  ValueListenable<AudioTrack?> get nowPlaying =>
+  ValueListenable<AudioFile?> get nowPlaying =>
       _audioPlayerService.currentTrack;
 
   void showToast(String message) {

@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
-import 'package:rec_sesh/core/services/audio_player_service.dart';
 import 'package:rec_sesh/features/projects/domain/audio_track.dart';
+import 'package:rec_sesh/features/audio_player/application/audio_player_service.dart';
 
 class AudioPlayerViewModel {
   AudioPlayerViewModel({required AudioPlayerService audioPlayerService})
@@ -10,7 +10,7 @@ class AudioPlayerViewModel {
   final _log = Logger('$AudioPlayerViewModel');
   final AudioPlayerService _audioPlayerService;
 
-  ValueListenable<AudioTrack?> get currentTrack =>
+  ValueListenable<AudioFile?> get currentTrack =>
       _audioPlayerService.currentTrack;
   ValueListenable<bool> get isPlaying => _audioPlayerService.isPlaying;
   ValueListenable<Duration> get currentPosition =>
@@ -22,7 +22,7 @@ class AudioPlayerViewModel {
     _log.warning('TODO: STOP PLAYER');
   }
 
-  void playTrack(AudioTrack audioTrack) {
+  void playTrack(AudioFile audioTrack) {
     _audioPlayerService.playTrack(audioTrack);
   }
 

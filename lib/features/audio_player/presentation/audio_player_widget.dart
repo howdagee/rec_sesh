@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:rec_sesh/core/services/audio_player_service.dart';
+import 'package:rec_sesh/features/audio_player/application/audio_player_service.dart';
 import 'package:rec_sesh/core/theme/rec_colors.dart';
 import 'package:rec_sesh/core/theme/sizes.dart';
 import 'package:rec_sesh/core/utils/extensions.dart';
 import 'package:rec_sesh/core/utils/helpers.dart';
 import 'package:rec_sesh/core/utils/locator.dart';
-import 'package:rec_sesh/features/audio_player/audio_player_view_model.dart';
-import 'package:rec_sesh/features/audio_player/circular_progress_painter.dart';
+import 'package:rec_sesh/features/audio_player/presentation/audio_player_view_model.dart';
+import 'package:rec_sesh/features/audio_player/presentation/widgets/circular_progress_painter.dart';
 
-class AudioPlayer extends StatefulWidget {
-  const AudioPlayer({super.key});
+class AudioPlayerWidget extends StatefulWidget {
+  const AudioPlayerWidget({super.key});
 
   @override
-  State<AudioPlayer> createState() => _AudioPlayerState();
+  State<AudioPlayerWidget> createState() => _AudioPlayerWidgetState();
 }
 
-class _AudioPlayerState extends State<AudioPlayer> {
+class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
   late final _vmAudioPlayer = AudioPlayerViewModel(
     audioPlayerService: locator<AudioPlayerService>(),
   );
