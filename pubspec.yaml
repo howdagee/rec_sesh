@@ -33,7 +33,7 @@ dependencies:
   intl: any # This will get the pinned version of intl from flutter_localizations
 
   # Icons
-  cupertino_icons: ^1.0.8
+  cupertino_icons: ^1.0.9
 
   # Logging
   logging: ^1.2.0
