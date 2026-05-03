@@ -20,7 +20,7 @@ jobs:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
       flutter_channel: stable
-      flutter_version: '3.32.3'
+      flutter_version: '3.41.9'
       min_coverage: 75
       coverage_excludes: '**/*.g.dart'
       test_recursion: true
@@ -29,7 +29,7 @@ jobs:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/license_check.yml@v1
     with:
       flutter_channel: stable
-      flutter_version: '3.32.3'
+      flutter_version: '3.41.9'
       allowed: 'MIT,BSD-3-Clause,BSD-2-Clause,Apache-2.0'
 
   spell-check:
